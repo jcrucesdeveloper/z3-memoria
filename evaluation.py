@@ -53,7 +53,6 @@ def check_reshape_with_z3(input_shape, target_shape):
     Args:
         input_shape: lista de dimensiones del tensor de entrada
         target_shape: lista de dimensiones objetivo
-    
     Returns:
         tuple: (is_valid, error_message)
     """
@@ -67,61 +66,32 @@ def check_reshape_with_z3(input_shape, target_shape):
         error_msg = f"Reshape inválido (Z3): {input_shape} ({input_elements} elementos) -> {target_shape} ({target_elements} elementos)"
         return False, error_msg
 
-def analyze_example_py():
-    """
-    Analiza el código de example.py para detectar problemas de reshape.
-    """
 
-
-    print("=== Análisis de example.py con Z3 ===")
-
-    # Caso 1: [4, 2, 3] -> [4, 7]
-    # Caso valido
-
-
-    # Caso 2: [4, 2, 3] -> [4, 6]
-
-
-    # Caso 3: [4, 2, 3] -> [4, 7]
-    
-    # Caso del ejemplo: [4, 2, 3] -> [4, 7]
-    input_shape = [4, 2, 3]  # 24 elementos
-    target_shape = [4, 7]    # 28 elementos
-    
-    is_valid, msg = check_reshape_with_z3(input_shape, target_shape)
-    print(f"example.py reshape: {msg}")
-    
-    # Caso correcto: [4, 2, 3] -> [4, 6]
-    correct_target = [4, 6]  # 24 elementos
-    is_valid_correct, msg_correct = check_reshape_with_z3(input_shape, correct_target)
-    print(f"Caso correcto: {msg_correct}")
-    
-    # Caso con -1 para inferencia automática
-    auto_target = [4, -1]  # Z3 inferirá 6
-    is_valid_auto, msg_auto = check_reshape_with_z3(input_shape, auto_target)
-    print(f"Caso con inferencia automática: {msg_auto}")
-
-# Ejemplo de uso
 if __name__ == "__main__":
-    analyze_example_py()
+    print("\n=== Análisis de reshape con Z3 ===")
     
-    print("\n=== Casos de prueba adicionales ===")
-    
-    # Caso válido
+    # Caso 1: [4, 2, 3] -> [4, 6]
+    # 24 elementos -> 24 elementos
+    # Valido
     input_shape = [4, 2, 3]  # 24 elementos
     target_shape = [4, 6]    # 24 elementos
     is_valid, msg = check_reshape_with_z3(input_shape, target_shape)
-    print(f"Caso 1: {msg}")
+    print(f"Caso 1: [4, 2, 3] -> [4, 6] {msg}")
     
-    # Caso inválido (como en tu ejemplo)
+    # Caso 2: [4, 2, 3] -> [4, 7]
+    # 24 elementos -> 28 elementos
+    # Invalido
     input_shape = [4, 2, 3]  # 24 elementos
     target_shape = [4, 7]    # 28 elementos
     is_valid, msg = check_reshape_with_z3(input_shape, target_shape)
-    print(f"Caso 2: {msg}")
+    print(f"Caso 2: [4, 2, 3] -> [4, 7] {msg}")
     
-    # Caso con -1
+    # Caso 3: [6, 4] -> [-2, -1]
+    # 24 elementos -> 12 elementos
+    # Invalido porque -2 no es > 0
     input_shape = [6, 4]     # 24 elementos
-    target_shape = [2, -1]   # Z3 inferirá 12
+    target_shape = [-2, -1]   # Z3 inferirá 12
     is_valid, msg = check_reshape_with_z3(input_shape, target_shape)
-    print(f"Caso 3: {msg}") 
+    print(f"Caso 3: [6, 4] -> [2, -1] {msg}") 
+
     
