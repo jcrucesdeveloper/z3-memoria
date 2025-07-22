@@ -63,18 +63,10 @@ def reshape_constraints_z3(t_i, t_o, verbose=False):
     result = s.check()
     
     if verbose:
+        print("")
         print("Restricciones en el solver:")
         for i, constraint in enumerate(s.assertions()):
-            constraint_str = str(constraint)
-            # Detectar la restricción de igualdad de productos específicamente
-            if constraint_str == f"{product_t_i} == {product_t_o}":
-                print(f"  {i+1}. [IGUALDAD DE PRODUCTOS] {constraint_str}")
-            elif ">" in constraint_str and "0" in constraint_str:
-                print(f"  {i+1}. [DIMENSIÓN POSITIVA] {constraint_str}")
-            elif "==" in constraint_str and ("t_i_" in constraint_str or "t_o_" in constraint_str):
-                print(f"  {i+1}. [ASIGNACIÓN DE VALOR] {constraint_str}")
-            else:
-                print(f"  {i+1}. [OTRA RESTRICCIÓN] {constraint_str}")
+            print(f"  {i+1}. {constraint}")
         
         print(f"\nResultado del solver: {result}")
     return result == sat
@@ -109,17 +101,18 @@ if __name__ == "__main__":
     # Valido
     input_shape = [4, 2, 3]  # 24 elementos
     target_shape = [4, 6]    # 24 elementos
+    print(f"Caso 1: [4, 2, 3] -> [4, 6]")
     is_valid, msg = check_reshape_with_z3(input_shape, target_shape, verbose=True)
-    print(f"Caso 1: [4, 2, 3] -> [4, 6] {msg}")
-
+    print(f"{msg}")
     print("##############################################") 
     # Caso 2: [4, 2, 3] -> [4, 7]
     # 24 elementos -> 28 elementos
     # Invalido
     input_shape = [4, 2, 3]  # 24 elementos
     target_shape = [4, 7]    # 28 elementos
+    print("Caso 2: [4, 2, 3] -> [4, 7]")
     is_valid, msg = check_reshape_with_z3(input_shape, target_shape, verbose=True)
-    print(f"Caso 2: [4, 2, 3] -> [4, 7] {msg}")
+    print(f"{msg}")
     
     # # Caso 3: [6, 4] -> [2, -1]
     # # 24 elementos -> 12 elementos
