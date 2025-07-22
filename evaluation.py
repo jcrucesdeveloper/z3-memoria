@@ -110,10 +110,10 @@ if __name__ == "__main__":
     reshape_z3(input_shape, target_shape, verbose=True)
     
     # Ejemplo 3: [6, 4] -> [-2, -1]
-    # 24 elementos -> 12 elementos
-    # Invalido porque -2 no es > 0
+    # 24 elementos -> 24 elementos
+    # Invalido porque -6 y -4 no son > 0
     input_shape = [6, 4]     
-    target_shape = [-2, -1]   
+    target_shape = [-6, -4]   
     print(f"Ejemplo 3: [6, 4] -> [-2, -1]")
     reshape_z3(input_shape, target_shape, verbose=True)
     
