@@ -80,14 +80,13 @@ def reshape_z3(input_shape, target_shape, verbose=False):
         tuple: (is_valid, error_message)
     """
     if reshape_constraints_z3(input_shape, target_shape, verbose):
+        print("Reshape valido para el Z3")
         return True
     else:
         # Calcular elementos para el mensaje de error
         input_elements = math.prod(input_shape)
         target_elements = math.prod([d for d in target_shape if d != -1])
-        
-        error_msg = f"Reshape inválido (Z3): {input_shape} ({input_elements} elementos) -> {target_shape} ({target_elements} elementos)"
-        print(error_msg)
+        print(f"Reshape inválido (Z3): {input_shape} ({input_elements} elementos) -> {target_shape} ({target_elements} elementos)")
         return False 
 
 
@@ -100,7 +99,7 @@ if __name__ == "__main__":
     input_shape = [4, 2, 3]  # 24 elementos
     target_shape = [4, 6]    # 24 elementos
     print(f"Caso 1: [4, 2, 3] -> [4, 6]")
-    is_valid = reshape_z3(input_shape, target_shape, verbose=True)
+    reshape_z3(input_shape, target_shape, verbose=True)
 
     # Ejemplo 2: [4, 2, 3] -> [4, 7]
     # 24 elementos -> 28 elementos
@@ -108,7 +107,7 @@ if __name__ == "__main__":
     input_shape = [4, 2, 3]  # 24 elementos
     target_shape = [4, 7]    # 28 elementos
     print("Caso 2: [4, 2, 3] -> [4, 7]")
-    is_valid = reshape_z3(input_shape, target_shape, verbose=True)
+    reshape_z3(input_shape, target_shape, verbose=True)
     
     # Ejemplo 3: [6, 4] -> [-2, -1]
     # 24 elementos -> 12 elementos
@@ -116,5 +115,5 @@ if __name__ == "__main__":
     input_shape = [6, 4]     
     target_shape = [-2, -1]   
     print(f"Caso 3: [6, 4] -> [-2, -1] {msg}")
-    is_valid = reshape_z3(input_shape, target_shape, verbose=True)
+    reshape_z3(input_shape, target_shape, verbose=True)
     
