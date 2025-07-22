@@ -28,8 +28,7 @@ def reshape_constraints_z3(t_i, t_o, verbose=False):
     
     product_t_o = 1
     for i, dim in enumerate(t_o):
-        if dim != -1:
-            product_t_o *= dim
+        product_t_o *= dim
         s.add(t_o_dims[i] == dim)
 
     # Verifica que el producto de las dimensiones del tensor de entrada sea igual al producto de las dimensiones objetivo
@@ -43,18 +42,11 @@ def reshape_constraints_z3(t_i, t_o, verbose=False):
         print(f"Producto t_o: {product_t_o}")
         print(f"Restricción de igualdad: {product_t_i} == {product_t_o}")
     
-    # Restricciones C4 y C5: Todas las dimensiones deben ser > 0 o = -1
+    # Restricción C4: Todas las dimensiones de salida deben ser > 0 
     for i, dim in enumerate(t_o):
-        if dim == -1:
-            # Para -1, permitir cualquier valor positivo
-            s.add(t_o_dims[i] > 0)
-            if verbose:
-                print(f"Restricción para t_o_dims[{i}] (dim={dim}): {t_o_dims[i]} > 0")
-        else:
-            # Para valores específicos, deben ser > 0
-            s.add(t_o_dims[i] > 0)
-            if verbose:
-                print(f"Restricción para t_o_dims[{i}] (dim={dim}): {t_o_dims[i]} > 0")
+        s.add(t_o_dims[i] > 0)
+        if verbose:
+            print(f"Restricción para t_o_dims[{i}] (dim={dim}): {t_o_dims[i]} > 0")
     
     # Verificar si es satisfacible
     result = s.check()
