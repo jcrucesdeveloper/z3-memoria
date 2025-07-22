@@ -41,19 +41,19 @@ def reshape_constraints_z3(t_i, t_o, verbose=False):
         print(f"Dimensiones simbolicas para t_o: {t_o_dims}")
         print(f"Producto t_i: {product_t_i}")
         print(f"Producto t_o: {product_t_o}")
-        print(f"Restricción de igualdad: {product_t_i} == {product_t_o}")
+        print(f"Restriccion de igualdad: {product_t_i} == {product_t_o}")
     
     # Restriccion C4: Todas las dimensiones de salida deben ser > 0 
     for i, dim in enumerate(t_o):
         s.add(t_o_dims[i] > 0)
         if verbose:
-            print(f"Restricción para t_o_dims[{i}] (dim={dim}): {t_o_dims[i]} > 0")
+            print(f"Restriccion para t_o_dims[{i}] (dim={dim}): {t_o_dims[i]} > 0")
     
     # Restriccion C5: Las dimensiones de entrada deben ser > 0 o igual a -1
     for i, dim in enumerate(t_i):
         s.add(Or(t_i_dims[i] > 0, t_i_dims[i] == -1))
         if verbose:
-            print(f"Restricción para t_i_dims[{i}] (dim={dim}): {t_i_dims[i]} > 0 OR {t_i_dims[i]} == -1")
+            print(f"Restriccion para t_i_dims[{i}] (dim={dim}): {t_i_dims[i]} > 0 OR {t_i_dims[i]} == -1")
     
     # Verificar si es satisfacible
     result = s.check()
