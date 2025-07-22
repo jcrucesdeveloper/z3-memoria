@@ -38,13 +38,12 @@ def reshape_constraints_z3(t_i, t_o, verbose=False):
     s.add(product_t_i == product_t_o) 
     
     if verbose:
-        print("Restricciones en lenguaje natural")
-        print(f"Variables t_i_dims: {t_i_dims}")
-        print(f"Variables t_o_dims: {t_o_dims}")
+        print("Restricciones en lenguaje natural para el Z3")
+        print(f"Dimensiones simbolicas para t_i: {t_i_dims}")
+        print(f"Dimensiones simbolicas para t_o: {t_o_dims}")
         print(f"Producto t_i: {product_t_i}")
-        print(f"Producto t_o (sin -1): {product_t_o}")
+        print(f"Producto t_o: {product_t_o}")
         print(f"Restricción de igualdad: {product_t_i} == {product_t_o}")
-        print(f"Expresión Z3: {product_t_i} == {product_t_o}")
     
     # Restricciones C4 y C5: Todas las dimensiones deben ser > 0 o = -1
     for i, dim in enumerate(t_o):
