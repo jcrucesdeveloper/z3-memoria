@@ -98,7 +98,7 @@ if __name__ == "__main__":
     # Valido
     input_shape = [4, 2, 3]  # 24 elementos
     target_shape = [4, 6]    # 24 elementos
-    print(f"Caso 1: [4, 2, 3] -> [4, 6]")
+    print(f"Ejemplo 1: [4, 2, 3] -> [4, 6]")
     reshape_z3(input_shape, target_shape, verbose=True)
 
     # Ejemplo 2: [4, 2, 3] -> [4, 7]
@@ -106,7 +106,7 @@ if __name__ == "__main__":
     # Invalido
     input_shape = [4, 2, 3]  # 24 elementos
     target_shape = [4, 7]    # 28 elementos
-    print("Caso 2: [4, 2, 3] -> [4, 7]")
+    print(f"Ejemplo 2: [4, 2, 3] -> [4, 7]")
     reshape_z3(input_shape, target_shape, verbose=True)
     
     # Ejemplo 3: [6, 4] -> [-2, -1]
@@ -114,6 +114,6 @@ if __name__ == "__main__":
     # Invalido porque -2 no es > 0
     input_shape = [6, 4]     
     target_shape = [-2, -1]   
-    print(f"Caso 3: [6, 4] -> [-2, -1] {msg}")
+    print(f"Ejemplo 3: [6, 4] -> [-2, -1]")
     reshape_z3(input_shape, target_shape, verbose=True)
     
