@@ -51,15 +51,10 @@ def reshape_constraints_z3(t_i, t_o, verbose=False):
     
     # Restriccion C5: Las dimensiones de entrada deben ser > 0 o igual a -1
     for i, dim in enumerate(t_i):
-        if dim == -1:
-            s.add(t_i_dims[i] == -1)
-            if verbose:
-                print(f"Restricción para t_i_dims[{i}] (dim={dim}): {t_i_dims[i]} == -1")
-        else:
-            # Para valores específicos, deben ser > 0
-            s.add(t_i_dims[i] > 0)
-            if verbose:
-                print(f"Restricción para t_i_dims[{i}] (dim={dim}): {t_i_dims[i]} > 0")
+        # Para cualquier dimensión: debe ser > 0 O igual a -1
+        s.add(Or(t_i_dims[i] > 0, t_i_dims[i] == -1))
+        if verbose:
+            print(f"Restricción para t_i_dims[{i}] (dim={dim}): {t_i_dims[i]} > 0 OR {t_i_dims[i]} == -1")
     
     # Verificar si es satisfacible
     result = s.check()
