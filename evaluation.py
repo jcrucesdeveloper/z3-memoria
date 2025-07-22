@@ -1,5 +1,5 @@
 from z3 import *
-import math
+import math  
 
 def reshape_constraints_z3(t_i, t_o, verbose=False):
     """
@@ -19,8 +19,6 @@ def reshape_constraints_z3(t_i, t_o, verbose=False):
     # Variables simbolicas para las dimensiones
     t_i_dims = [Int(f"t_i_{i}") for i in range(len(t_i))]
     t_o_dims = [Int(f"t_o_{i}") for i in range(len(t_o))]
-    
-
     
     # Restricciones C3: Producto de dimensiones debe ser igual
     product_t_i = 1
@@ -70,7 +68,7 @@ def reshape_constraints_z3(t_i, t_o, verbose=False):
         print(f"\nResultado del solver: {result}")
     return result == sat
 
-def check_reshape_with_z3(input_shape, target_shape, verbose=False):
+def reshape_z3(input_shape, target_shape, verbose=False):
     """
     Verifica si un reshape es válido usando Z3 antes de ejecutarlo.
     
@@ -101,7 +99,7 @@ if __name__ == "__main__":
     input_shape = [4, 2, 3]  # 24 elementos
     target_shape = [4, 6]    # 24 elementos
     print(f"Caso 1: [4, 2, 3] -> [4, 6]")
-    is_valid, msg = check_reshape_with_z3(input_shape, target_shape, verbose=True)
+    is_valid, msg = reshape_z3(input_shape, target_shape, verbose=True)
     print(f"{msg}")
     print("##############################################") 
     # Caso 2: [4, 2, 3] -> [4, 7]
@@ -110,7 +108,7 @@ if __name__ == "__main__":
     input_shape = [4, 2, 3]  # 24 elementos
     target_shape = [4, 7]    # 28 elementos
     print("Caso 2: [4, 2, 3] -> [4, 7]")
-    is_valid, msg = check_reshape_with_z3(input_shape, target_shape, verbose=True)
+    is_valid, msg = reshape_z3(input_shape, target_shape, verbose=True)
     print(f"{msg}")
     
     # # Caso 3: [6, 4] -> [2, -1]
