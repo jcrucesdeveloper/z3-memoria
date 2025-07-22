@@ -93,7 +93,7 @@ def reshape_z3(input_shape, target_shape, verbose=False):
 if __name__ == "__main__":
     print("\n=== Análisis de reshape con Z3 ===")
     
-    # Caso 1: [4, 2, 3] -> [4, 6]
+    # Ejemplo 1: [4, 2, 3] -> [4, 6]
     # 24 elementos -> 24 elementos
     # Valido
     input_shape = [4, 2, 3]  # 24 elementos
@@ -102,7 +102,7 @@ if __name__ == "__main__":
     is_valid, msg = reshape_z3(input_shape, target_shape, verbose=True)
     print(f"{msg}")
     print("##############################################") 
-    # Caso 2: [4, 2, 3] -> [4, 7]
+    # Ejemplo 2: [4, 2, 3] -> [4, 7]
     # 24 elementos -> 28 elementos
     # Invalido
     input_shape = [4, 2, 3]  # 24 elementos
@@ -111,20 +111,11 @@ if __name__ == "__main__":
     is_valid, msg = reshape_z3(input_shape, target_shape, verbose=True)
     print(f"{msg}")
     
-    # # Caso 3: [6, 4] -> [2, -1]
-    # # 24 elementos -> 12 elementos
-    # # Invalido porque -2 no es > 0
-    # input_shape = [6, 4]     # 24 elementos
-    # target_shape = [2, -1]   # Z3 inferirá 12
-    # is_valid, msg = check_reshape_with_z3(input_shape, target_shape, verbose=True)
-    # print(f"Caso 3: [6, 4] -> [2, -1] {msg}")
-    
-    # # Caso 4: [6, 4] -> [-1, 8]
-    # # 24 elementos -> 24 elementos
-    # # Valido, Z3 inferirá -1 = 3
-    # input_shape = [6, 4]     # 24 elementos
-    # target_shape = [-1, 8]   # Z3 inferirá 3
-    # is_valid, msg = check_reshape_with_z3(input_shape, target_shape, verbose=True)
-    # print(f"Caso 4: [6, 4] -> [-1, 8] {msg}") 
-
+    # # Caso 3: [6, 4] -> [-2, -1]
+    # 24 elementos -> 12 elementos
+    # Invalido porque -2 no es > 0
+    input_shape = [6, 4]     
+    target_shape = [2, -1]   
+    is_valid, msg = reshape_z3(input_shape, target_shape, verbose=True)
+    print(f"Caso 3: [6, 4] -> [2, -1] {msg}")
     
