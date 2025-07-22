@@ -109,7 +109,7 @@ if __name__ == "__main__":
     print(f"Ejemplo 2: [4, 2, 3] -> [4, 7]")
     reshape_z3(input_shape, target_shape, verbose=True)
     
-    # Ejemplo 3: [6, 4] -> [-2, -1]
+    # Ejemplo 3: [6, 4] -> [-6, -4]
     # 24 elementos -> 24 elementos
     # Invalido porque -6 y -4 no son > 0
     input_shape = [6, 4]     
