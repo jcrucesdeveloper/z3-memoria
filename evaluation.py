@@ -114,6 +114,6 @@ if __name__ == "__main__":
     # Invalido porque -6 y -4 no son > 0
     input_shape = [6, 4]     
     target_shape = [-6, -4]   
-    print(f"Ejemplo 3: [6, 4] -> [-2, -1]")
+    print(f"Ejemplo 3: [6, 4] -> [-6, -4]")
     reshape_z3(input_shape, target_shape, verbose=True)
     
